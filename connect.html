@@ -31,29 +31,53 @@
     <meta name="twitter:image" content="muhahaha_wide.png" />
   </head>
   <body>
-    <div id="splashScreen" class="splash flex wrap center">
-      <span class="header flex center"><b>🐸 one hour of silence broken by the occasional kodok acimalaka 🐸</b></span>
+    <div id="container" class="flex center wrap">
+      <div class="flex header center">
+        <span id="hello">🐸 one hour of silence broken by the occasional kodok acimalaka 🐸</span>
+      </div>
+
       <div class="breaker"></div>
-      <span class="paragraph"
-        >kodok acimalaka has brought me irrefutable joy and happiness. respect the
-        <a
-          class="inline-link"
-          target="_blank"
-          rel="noopener noreferrer"
-          href="https://www.youtube.com/watch?v=Ex3w5oq1LPg"
-          >original source.</a
-        >
-        this smol web toy is created for the lols between my friends and i. you can join in the fun by leaving this tab
-        open and see how long you can take it before deciding to end it all. i may or may not update this in the future.
-        enjoy this while it's around. <b>may be broken on some devices, especially phones.</b> i'm too unbothered to fix
-        it lol.<br />&nbsp;<br />is this funny to u? i make other stuff that may or may not be related to the interwebz
-        and memes at all.<br /><b
-          ><a class="inline-link" target="_blank" rel="noopener noreferrer" href="https://twitter.com/vngnc"
-            >follow me on twitter.</a
-          ></b
-        ></span
-      >
-      <a href="/connect" class="button">begin suffering</a>
+
+      <div class="counters">
+        <span>time wasted:&nbsp;</span><span id="runtime"></span>
+        <div class="breaker"></div>
+        <span>score:&nbsp;</span><span id="score">0</span>
+      </div>
+
+      <div class="breaker"></div>
+
+      <div id="vidcon" class="disappear flex center noselect">
+        <video id="vid" src="kodok.mp4" preload="auto" width="100%" height="100%"></video>
+      </div>
+
+      <div class="breaker"></div>
+
+      <div class="share"><button id="tweet" class="tweet" onclick="sendTweet()">share to twitter</button></div>
+
+      <div class="version noselect">Version 1.0</div>
+
+      <div hx-ws="connect:/connect" hx-swap-oob="true">
+        <form hx-ws="send" id="pong">
+          insert name
+          <input name="name" placeholder="your name here" onkeypress="handleEnter(event)" />
+          and press enter
+        </form>
+      </div>
     </div>
+    <script src="script.js" async defer></script>
+    <script
+      src="https://unpkg.com/htmx.org@1.8.4"
+      integrity="sha384-wg5Y/JwF7VxGk4zLsJEcAojRtlVp1FKKdGy1qN+OMtdq72WRvX/EdRdqg/LOhYeV"
+      crossorigin="anonymous"
+    ></script>
+    <script>
+      let started = false;
+      htmx.onLoad((target) => {
+        if (target.id === "pong" && !started) {
+          start = true;
+          start();
+        }
+      });
+    </script>
   </body>
 </html>
